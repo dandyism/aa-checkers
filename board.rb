@@ -4,7 +4,7 @@ class Board
   MEN  = 20
   
   def initialize
-    build_matrix
+    self.matrix = empty_matrix
     place_men
   end
   
@@ -22,28 +22,42 @@ class Board
   attr_accessor :matrix
   attr_accessor :men
   
-  def build_matrix
+  def empty_matrix
     Array.new(SIZE) { Array.new(SIZE) }
   end
   
   def place_men
+    self.men = {}
+    
     self.men[:light] = [Man.new(self, :light)] * MEN
     self.men[:dark]  = [Man.new(self, :dark)]  * MEN
-    
-    self.matrix.flatten.each_index do |i|
-      man = self.men[:dark][i]
-      row = i % SIZE
-      col = i % row
-      
-      man.position = [row, col]
+
+    i = 0
+    (0..3).each do |row|
+      (0...SIZE).each do |col|
+        if col % 2 == 0
+          man = self.men[:dark][i]
+          i += 1
+          
+          unless man.nil?
+            man.position = [row, col]
+          end
+        end
+      end
     end
     
-    self.matrix.flatten.reverse.each_index do |i|
-      man = self.men[:light][i]
-      row = i % SIZE
-      col = i % row
-      
-      man.position = [row, col]
+    i = 0
+    (5...SIZE).each do |row|
+      (0...SIZE).each do |col|
+        if col % 2 == 0
+          man = self.men[:light][i]
+          i += 1
+          
+          unless man.nil?
+            man.position = [row, col]
+          end
+        end
+      end
     end
     
     nil
