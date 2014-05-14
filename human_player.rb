@@ -14,7 +14,7 @@ class HumanPlayer
       raise InvalidMoveError.new
     end
     
-    man.slide(move.last)
+    man.slide(move.last) or raise InvalidMoveError.new
   end
   
   protected

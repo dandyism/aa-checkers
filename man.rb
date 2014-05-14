@@ -3,8 +3,8 @@
 class Man
   
   DELTAS = [
-    [ 1, 1],
-    [ 1,-1]
+    [ -1, 1],
+    [ -1,-1]
   ]
   
   attr_reader :position
@@ -17,7 +17,7 @@ class Man
     unless self.position.nil?
       self.board[self.position] = nil
     end
-    
+
     @position = pos
     self.board[pos] = self
   end
@@ -28,12 +28,6 @@ class Man
   
   def valid_moves
     deltas = DELTAS
-    
-    if self.color == :light
-      deltas.each do |delta|
-        delta[0] *= -1
-      end
-    end
     
     positions = deltas.map! do |drow, dcol|
       [self.position.first + drow,
