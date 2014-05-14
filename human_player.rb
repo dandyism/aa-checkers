@@ -1,3 +1,5 @@
+require_relative 'invalid_move_error'
+
 class HumanPlayer
   
   def initialize(board)
@@ -6,11 +8,21 @@ class HumanPlayer
   
   def take_turn
     move = get_move
-    self.board.move(*move)
+    man = take_man(move.first)
+
+    if man.nil?
+      raise InvalidMoveError.new
+    end
+    
+    man.slide(move.last)
   end
   
   protected
   attr_accessor :board
+  
+  def take_man(position)
+    self.board[position]
+  end
   
   def get_move
     move = gets.chomp
@@ -21,6 +33,8 @@ class HumanPlayer
     start, target = move.split(",")
     start = start.split("")
     target = target.split("")
+    start.map! {|e| Integer(e) }
+    target.map! {|e| Integer(e) }
     [start, target]
   end
   

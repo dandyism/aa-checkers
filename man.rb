@@ -2,6 +2,11 @@
 
 class Man
   
+  DELTAS = [
+    [ 1, 1],
+    [ 1,-1]
+  ]
+  
   attr_reader :position
   
   def initialize(board, color)
@@ -14,6 +19,20 @@ class Man
     end
     
     self.board[pos] = self
+  end
+  
+  def slide(pos)
+    self.valid_moves.include?(pos) && self.position = pos
+  end
+  
+  def valid_moves
+    deltas = DELTAS
+    
+    if self.color == :white
+      deltas.map! { |drow, dcol| drow * -1 }
+    end
+    
+    deltas.map  { |drow, dcol| [self.position + drow, self.position + dcol]  }
   end
   
   def to_s
