@@ -15,7 +15,7 @@ class Man
   
   def position=(pos)
     unless self.position.nil?
-      self.board[pos] = nil
+      self.board[self.position] = nil
     end
     
     @position = pos
@@ -29,11 +29,17 @@ class Man
   def valid_moves
     deltas = DELTAS
     
-    if self.color == :white
-      deltas.map! { |drow, dcol| drow * -1 }
+    if self.color == :light
+      deltas.each do |delta|
+        delta[0] *= -1
+      end
     end
     
-    positions = deltas.map  { |drow, dcol| [self.position.first + drow, self.position.last + dcol]  }
+    positions = deltas.map! do |drow, dcol|
+      [self.position.first + drow,
+       self.position.last + dcol]
+    end
+
     positions.select { |position| self.board[position].nil? }
   end
   
