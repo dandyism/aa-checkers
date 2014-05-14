@@ -15,6 +15,10 @@ class Board
     puts self
   end
   
+  def move(start, target)
+    
+  end
+  
   def to_s
     string = ""
     

@@ -4,12 +4,12 @@ require_relative 'human_player'
 class Checkers
   
   def initialize
-    self.players = [
-      HumanPlayer.new,
-      HumanPlayer.new
-    ]
-    
     self.board = Board.new
+    
+    self.players = [
+      HumanPlayer.new(self.board),
+      HumanPlayer.new(self.board)
+    ]
   end
   
   def play
@@ -17,6 +17,8 @@ class Checkers
     until over?
       current_player = self.players.first
       self.board.render
+      current_player.take_turn
+      
       self.players.rotate!
       self.board.flip!
     end
