@@ -13,6 +13,7 @@ class Checkers
       current_player = self.players.first
       self.board.render
       self.players.rotate!
+      self.board.flip!
     end
     
     self.board.render

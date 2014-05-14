@@ -32,6 +32,28 @@ class Board
     string
   end
   
+  def flip
+    self.dup.flip!
+  end
+  
+  def flip!
+    self.matrix.reverse!
+  end
+  
+  def dup
+    dupped_board  = Board.new
+    dupped_matrix = self.matrix.dup.map { |row| row.dup }
+    dupped_men    = Hash.new { |h, k| h[k] = [] }
+    
+    self.men[:light].each { |man| dupped_men[:light] << Man.new(self, :light) }
+    self.men[:dark].each  { |man| dupped_men[:dark] << Man.new(self, :dark) }
+    
+    dupped_board.matrix = dupped_matrix
+    dupped_board.men    = dupped_men
+    
+    dupped_board
+  end
+  
   def [](position)
     row, col = position
     self.matrix[row][col]
@@ -85,28 +107,6 @@ class Board
     end
     
     nil
-  end
-  
-  def flip
-    self.dup.flip!
-  end
-  
-  def flip!
-    self.matrix.reverse!
-  end
-  
-  def dup
-    dupped_board  = Board.new
-    dupped_matrix = self.matrix.dup.map { |row| row.dup }
-    dupped_men    = Hash.new { |h, k| h[k] = [] }
-    
-    self.men[:light].each { |man| dupped_men[:light] << Man.new(self, :light) }
-    self.men[:dark].each  { |man| dupped_men[:dark] << Man.new(self, :dark) }
-    
-    dupped_board.matrix = dupped_matrix
-    dupped_board.men    = dupped_men
-    
-    dupped_board
   end
   
 end
