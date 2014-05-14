@@ -69,44 +69,40 @@ class Board
   attr_accessor :men
   
   def empty_matrix
-    Array.new(SIZE) { Array.new(SIZE) }
+    []
   end
   
   def place_men
-    self.men = {}
-    
-    self.men[:light] = [Man.new(self, :light)] * MEN
-    self.men[:dark]  = [Man.new(self, :dark)]  * MEN
+    self.men = Hash.new { |h, k| h[k] = []}
 
-    i = 0
-    (0..3).each do |row|
-      (0...SIZE).each do |col|
-        if col % 2 == 0
-          man = self.men[:dark][i]
-          i += 1
-          
-          unless man.nil?
-            man.position = [row, col]
-          end
-        end
-      end
-    end
+    rank_depth  = MEN / (SIZE / 2)
+    light_ranks = build_ranks(:light, 0, rank_depth)
+    dark_ranks  = build_ranks(:dark,  SIZE - rank_depth, rank_depth)
+    empty_ranks = empty_ranks(rank_depth, SIZE - rank_depth * 2)
     
-    i = 0
-    (5...SIZE).each do |row|
-      (0...SIZE).each do |col|
-        if col % 2 == 0
-          man = self.men[:light][i]
-          i += 1
-          
-          unless man.nil?
-            man.position = [row, col]
-          end
-        end
-      end
-    end
+    self.matrix = dark_ranks + empty_ranks + light_ranks
     
     nil
+  end
+  
+  def build_ranks(color, start_pos, depth)
+    head_count = (depth * SIZE) / 2
+    men = [Man] * head_count
+    empties = [nil] * head_count
+    
+    men.map! { |man| man.new(self, color) }
+    men.each { |man| self.men[color] << man }
+    
+    # Zip together the men and the empties and flatten
+    # the result. This gives an array of elements alternating
+    # between nil and Man objects. Then slice that array into
+    # sub arrays of size SIZE and return the result.
+    men.zip(empties).flatten.each_slice(SIZE).to_a
+  end
+  
+  def empty_ranks(start_pos, depth)
+    empties = [nil] * (depth * SIZE)
+    empties.each_slice(SIZE).to_a
   end
   
 end
