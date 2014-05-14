@@ -1,3 +1,5 @@
+require_relative 'man'
+
 class Board
   
   SIZE = 10

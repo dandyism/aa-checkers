@@ -1,3 +1,6 @@
+require_relative 'board'
+require_relative 'human_player'
+
 class Checkers
   
   def initialize
@@ -5,6 +8,8 @@ class Checkers
       HumanPlayer.new,
       HumanPlayer.new
     ]
+    
+    self.board = Board.new
   end
   
   def play
@@ -28,4 +33,8 @@ class Checkers
   protected
   attr_accessor :board, :players
   
+end
+
+if __FILE__ == $PROGRAM_NAME
+  Checkers.new.play
 end
