@@ -20,9 +20,23 @@ class Board
     self.men[:light] = [Man.new(self, :light)] * MEN
     self.men[:dark]  = [Man.new(self, :dark)]  * MEN
     
-    self.matrix.flatten.each_with_index do |el, i|
-      # TODO: Place men
+    self.matrix.flatten.each_index do |i|
+      man = self.men[:dark][i]
+      row = i % SIZE
+      col = i % row
+      
+      man.position = [row, col]
     end
+    
+    self.matrix.flatten.reverse.each_index do |i|
+      man = self.men[:light][i]
+      row = i % SIZE
+      col = i % row
+      
+      man.position = [row, col]
+    end
+    
+    nil
   end
   
   def flip
