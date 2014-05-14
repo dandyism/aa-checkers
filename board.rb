@@ -47,6 +47,7 @@ class Board
   
   def flip!
     self.matrix.reverse!
+    set_men_positions
   end
   
   def dup

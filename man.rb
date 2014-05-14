@@ -28,8 +28,8 @@ class Man
   
   def valid_moves
     deltas = DELTAS
-    
-    positions = deltas.map! do |drow, dcol|
+
+    positions = deltas.map do |drow, dcol|
       [self.position.first + drow,
        self.position.last + dcol]
     end
