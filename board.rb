@@ -20,9 +20,11 @@ class Board
   end
   
   def to_s
-    string = ""
+    string = "  0123456789\n"
     
     self.matrix.each_index do |row|
+      string += "#{row} "
+
       self.matrix.each_index do |col|
         man = self[[row, col]]
 
@@ -88,6 +90,8 @@ class Board
     empty_ranks = empty_ranks(rank_depth, SIZE - rank_depth * 2)
     
     self.matrix = dark_ranks + empty_ranks + light_ranks
+
+    set_men_positions
     
     nil
   end
@@ -113,6 +117,15 @@ class Board
   def empty_ranks(start_pos, depth)
     empties = [nil] * (depth * SIZE)
     empties.each_slice(SIZE).to_a
+  end
+
+  def set_men_positions
+    self.matrix.each_index do |row|
+      self.matrix[row].each_index do |col|
+        man = self.matrix[row][col]
+        man && man.position = [row, col]
+      end
+    end
   end
   
 end

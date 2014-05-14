@@ -18,6 +18,7 @@ class Man
       self.board[pos] = nil
     end
     
+    @position = pos
     self.board[pos] = self
   end
   
@@ -32,7 +33,8 @@ class Man
       deltas.map! { |drow, dcol| drow * -1 }
     end
     
-    deltas.map  { |drow, dcol| [self.position + drow, self.position + dcol]  }
+    positions = deltas.map  { |drow, dcol| [self.position.first + drow, self.position.last + dcol]  }
+    positions.select { |position| self.board[position].nil? }
   end
   
   def to_s
