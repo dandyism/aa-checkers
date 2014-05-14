@@ -22,10 +22,9 @@ class Checkers
   end
   
   def over?
-    self.dark_men.empty? || self.light_men.empty?
   end
   
   protected
-  attr_accessor :board, :dark_men, :light_men, :players
+  attr_accessor :board, :players
   
 end
