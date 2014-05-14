@@ -8,6 +8,16 @@ class Board
     place_men
   end
   
+  def [](position)
+    row, col = position
+    self.matrix[row][col]
+  end
+  
+  def []=(position, value)
+    row, col = position
+    self.matrix[row][col] = value 
+  end
+  
   protected
   attr_accessor :matrix
   attr_accessor :men
