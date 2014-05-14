@@ -11,6 +11,7 @@ class Board
   end
   
   def render
+    system "clear"
     puts self
   end
   
