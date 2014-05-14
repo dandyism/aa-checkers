@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class Man
   
   attr_reader :position
@@ -12,6 +14,10 @@ class Man
     end
     
     self.board[pos] = self
+  end
+  
+  def to_s
+    "●"
   end
   
   protected

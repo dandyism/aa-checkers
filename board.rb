@@ -8,6 +8,30 @@ class Board
     place_men
   end
   
+  def render
+    puts self
+  end
+  
+  def to_s
+    string = ""
+    
+    self.matrix.each_index do |row|
+      self.matrix.each_index do |col|
+        man = self[[row, col]]
+
+        if man.nil?
+          string += " "
+        else
+          string += "#{man}"
+        end
+      end
+      
+      string += "\n"
+    end
+    
+    string
+  end
+  
   def [](position)
     row, col = position
     self.matrix[row][col]
