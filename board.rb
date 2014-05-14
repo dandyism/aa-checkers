@@ -93,11 +93,14 @@ class Board
     men.map! { |man| man.new(self, color) }
     men.each { |man| self.men[color] << man }
     
-    # Zip together the men and the empties and flatten
-    # the result. This gives an array of elements alternating
-    # between nil and Man objects. Then slice that array into
-    # sub arrays of size SIZE and return the result.
-    men.zip(empties).flatten.each_slice(SIZE).to_a
+    ranks = men.zip(empties).flatten.each_slice(SIZE).to_a
+    stagger_ranks(ranks)
+  end
+  
+  def stagger_ranks(ranks)
+    ranks.each_index do |i|
+      ranks[i].rotate! if i % 2 == 0
+    end
   end
   
   def empty_ranks(start_pos, depth)
