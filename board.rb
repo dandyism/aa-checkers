@@ -3,7 +3,7 @@ require_relative 'man'
 class Board
   
   SIZE = 10
-  MEN  = 20
+  RANK_DEPTH = 4
   
   def initialize
     self.matrix = empty_matrix
@@ -101,10 +101,9 @@ class Board
   def place_men
     self.men = Hash.new { |h, k| h[k] = []}
 
-    rank_depth  = MEN / (SIZE / 2)
-    light_ranks = build_ranks(:light, 0, rank_depth)
-    dark_ranks  = build_ranks(:dark,  SIZE - rank_depth, rank_depth)
-    empty_ranks = empty_ranks(rank_depth, SIZE - rank_depth * 2)
+    light_ranks = build_ranks(:light, 0, RANK_DEPTH)
+    dark_ranks  = build_ranks(:dark,  SIZE - RANK_DEPTH, RANK_DEPTH)
+    empty_ranks = empty_ranks(RANK_DEPTH, SIZE - RANK_DEPTH * 2)
     
     self.matrix = dark_ranks + empty_ranks + light_ranks
 
