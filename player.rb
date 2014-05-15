@@ -27,8 +27,13 @@ class Player
   end
   
   def get_move
+    print prompt
     move = self.stream.gets.chomp
     parse_input(move)
+  end
+  
+  def prompt
+    "Move: "
   end
 
   def parse_input(move)

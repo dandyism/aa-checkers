@@ -16,12 +16,12 @@ class Board
   end
   
   def to_s
-    string = "   0  1  2  3  4  5  6  7  8  9\n"
+    output = []
     background_color = :red
     
     self.matrix.each_index do |row|
-      string += "#{row} "
-
+      row_string = ""
+      
       self.matrix.each_index do |col|
         man = self[[row, col]]
         tile = ""
@@ -32,17 +32,19 @@ class Board
           tile += " #{man} "
         end
 
-        string += tile.colorize(background: background_color)
+        row_string += tile.colorize(background: background_color)
 
         unless col == SIZE - 1
           background_color = (background_color == :red) ? :light_black : :red
         end
       end
       
-      string += "\n"
+      output << row_string
     end
     
-    string
+    output = output.each_with_index.map { |row, i| "#{i} #{row}" }
+    output = ["   0  1  2  3  4  5  6  7  8  9"] + output
+    output.join("\n")
   end
   
   def enemy?(pos, friendly_color)
