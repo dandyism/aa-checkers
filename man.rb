@@ -29,25 +29,20 @@ class Man
   end
 
   def jump(pos)
-    row_diff = pos.first - self.position.first
-    col_diff = pos.last  - self.position.last
-    delta    = [row_diff, col_diff]
-
-    # FIXME: This code assumes the board flips every turn.
-    if row_diff == -2 && col_diff.abs == 2 && self.board[pos].nil?
+    
+    if self.valid_jumps.include?(pos)
+      row_diff = pos.first - self.position.first
+      col_diff = pos.last - self.position.last
+      
       target_row = self.position.first + row_diff / 2
       target_col = self.position.last + col_diff / 2
 
       target = self.board[[target_row,target_col]]
-
-      if target.color != self.color
-        self.board.kill(target)
-
-        self.position = pos
-        return true
-      end
+      self.board.kill(target)
+      self.position = pos
+      return true
     end
-
+    
     false
   end
   
@@ -121,7 +116,6 @@ class Man
 
   def deltas
     if self.color == :dark
-      debugger
       DELTAS.map { |row, col| [row * -1, col] }
     else
       DELTAS
