@@ -131,7 +131,7 @@ class Man
   end
 
   def deltas
-    deltas = DELTAS
+    deltas = DELTAS.dup
     deltas += [[1, -1], [1, 1]] if self.king
     
     if self.color == :dark
