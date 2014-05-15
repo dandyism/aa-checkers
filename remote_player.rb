@@ -28,4 +28,9 @@ class RemotePlayer < Player
     self.stream.puts "#{move}\n"
   end
   
+  def get_move
+    move = self.stream.gets.chomp
+    eval(move)
+  end
+  
 end
