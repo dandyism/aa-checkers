@@ -6,14 +6,16 @@ class Checkers
   
   def initialize
     self.board = Board.new
-    
+  end
+  
+  def init_hotseat
     self.players = [
       HumanPlayer.new(self.board, :light),
       HumanPlayer.new(self.board, :dark)
     ]
   end
   
-  def configure_server
+  def init_server
     self.players = [
       HumanPlayer.new(self.board, :light),
       RemotePlayer.new(self.board, :dark)
@@ -54,7 +56,9 @@ if __FILE__ == $PROGRAM_NAME
   game = Checkers.new
   
   if ARGV[0] == "multiplayer"
-    game.configure_server
+    game.init_server
+  else
+    game.init_hotseat
   end
   
   game.play
