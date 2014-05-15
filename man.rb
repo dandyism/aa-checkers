@@ -25,7 +25,7 @@ class Man
   end
   
   def slide(pos)
-    self.valid_moves.include?(pos) && self.position = pos
+    self.valid_slides.include?(pos) && self.position = pos
   end
 
   def jump(pos)
