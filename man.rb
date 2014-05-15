@@ -61,6 +61,16 @@ class Man
 
     positions.select { |position| self.board[position].nil? }
   end
+  
+  def move!(sequence)
+    sequence.each do |move|
+      if sequence.size > 1
+        self.jump(move) or raise InvalidMoveError.new
+      else
+        (self.slide(move) || self.jump(move)) or raise InvalidMoveError.new
+      end
+    end
+  end
 
   def to_s
     color = (self.color == :light) ? :red : :black
