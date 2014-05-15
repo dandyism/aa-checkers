@@ -62,6 +62,16 @@ class Man
     positions.select { |position| self.board[position].nil? }
   end
   
+  def valid_move_seq?(sequence)
+    begin
+      self.dup.move!(sequence)
+    rescue InvalidMoveError => e
+      true
+    else
+      false
+    end
+  end
+  
   def move!(sequence)
     sequence.each do |move|
       if sequence.size > 1
