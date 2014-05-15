@@ -7,6 +7,7 @@ class RemotePlayer < Player
   PORT = 2000
   
   def initialize(board, color, address = nil)
+    super(board, color)
     
     if address.nil?
       puts "Waiting for client to connect..."
