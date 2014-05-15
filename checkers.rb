@@ -45,6 +45,9 @@ class Checkers
       rescue InvalidMoveError, ArgumentError
         puts "Invalid Move!"
         retry
+      rescue Interrupt
+        puts "Quitting game"
+        exit
       end
       
       self.players.rotate!
