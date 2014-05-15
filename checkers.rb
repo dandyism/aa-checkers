@@ -60,6 +60,11 @@ class Checkers
   end
   
   def over?
+    self.players.any? { |player| player.defeated? }
+  end
+  
+  def winner?
+    self.players.find { |player| !player.defeated? }
   end
   
   protected

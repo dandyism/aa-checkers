@@ -19,6 +19,11 @@ class Player
     seq
   end
   
+  def defeated?
+    self.board.all_dead?(self.color) ||
+      !self.board.men_can_move?(self.color)
+  end
+  
   protected
   attr_accessor :board, :stream
   

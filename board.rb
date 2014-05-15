@@ -82,6 +82,14 @@ class Board
     nil
   end
   
+  def all_dead?(color)
+    self.men[color].empty?
+  end
+  
+  def men_can_move?(color)
+    !self.men[color].all? { |man| man.valid_moves.empty? }
+  end
+  
   protected
   attr_accessor :matrix
   attr_accessor :men
