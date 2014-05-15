@@ -10,13 +10,16 @@ class RemotePlayer < Player
     super(board, color)
     
     if address.nil?
-      puts "Waiting for client to connect..."
+      puts "Waiting for client to connect"
       server = TCPServer.new(PORT)
       self.stream = server.accept
       
-      puts "Client connected!"
+    else
+      puts "Connecting to #{address}:#{PORT}"
+      self.stream = TCPSocket.new(address, PORT)
     end
     
+    puts "Connected!"
     sleep 2
     
   end

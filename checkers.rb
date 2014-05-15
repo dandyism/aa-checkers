@@ -22,6 +22,13 @@ class Checkers
     ]
   end
   
+  def init_remote(address)
+    self.players = [
+      RemotePlayer.new(self.board, :light, address),
+      HumanPlayer.new(self.board, :dark)
+    ]
+  end
+  
   def play
     
     until over?
@@ -56,7 +63,11 @@ if __FILE__ == $PROGRAM_NAME
   game = Checkers.new
   
   if ARGV[0] == "multiplayer"
-    game.init_server
+    if ARGV[1].nil?
+      game.init_server
+    else
+      game.init_remote(ARGV[1])
+    end
   else
     game.init_hotseat
   end
