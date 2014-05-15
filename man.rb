@@ -31,21 +31,23 @@ class Man
     col_diff = pos.last  - self.position.last
     delta    = [row_diff, col_diff]
 
-    if row_diff == -2 && col_diff.abs == 2 && self.board[pos].nil? && self.board[pos].color != self.color
+    if row_diff == -2 && col_diff.abs == 2 && self.board[pos].nil?
       target_row = self.position.first 
       target_col = self.position.last
 
       #FIXME: Move target removal to board function?
       target = self.board[target_row][target_col]
-      self.board.men[target.color].delete(target)
-      target.position = nil
 
-      self.position = pos
-      true
-    else
-      false
+      if target.color != self.color
+        self.board.men[target.color].delete(target)
+        target.position = nil
+
+        self.position = pos
+        return true
+      end
     end
 
+    false
   end
 
   def valid_moves
