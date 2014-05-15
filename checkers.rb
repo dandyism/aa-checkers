@@ -85,7 +85,8 @@ if __FILE__ == $PROGRAM_NAME
   OptionParser.new do |opts|
     opts.banner = "Usage: #{__FILE__} [options]"
     
-    opts.on("-m", "--multiplayer [address]") do |address|
+    opts.on("-m", "--multiplayer [address]",
+                  "Omit [address] to start a local server.") do |address|
       multiplayer    = true
       remote_address = address
     end
