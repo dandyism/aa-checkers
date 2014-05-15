@@ -26,10 +26,6 @@ class Checkers
       end
       
       self.players.rotate!
-
-      #FIXME: The board’s internal state probably shouldn’t
-      # change when we just want to flip the render.
-      self.board.flip! 
     end
     
     self.board.render

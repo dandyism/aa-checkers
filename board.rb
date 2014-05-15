@@ -50,16 +50,6 @@ class Board
     !self[pos].nil? && self[pos] != friendly_color
   end
   
-  def flip
-    self.dup.flip!
-  end
-  
-  def flip!
-    self.matrix.reverse!
-    set_men_positions
-    self.starting_color = (self.starting_color == :red) ? :light_black : :red
-  end
-  
   def dup
     dupped_board  = Board.new
     dupped_matrix = self.matrix.dup.map { |row| row.dup }

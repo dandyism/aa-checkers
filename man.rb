@@ -56,7 +56,7 @@ class Man
   end
 
   def valid_slides
-    deltas = DELTAS
+    deltas = self.deltas
 
     positions = deltas.map do |drow, dcol|
       [self.position.first + drow,
@@ -69,7 +69,7 @@ class Man
   def valid_jumps
     row, col = self.position
     
-    enemy_squares = DELTAS.map do |dr, dc|
+    enemy_squares = self.deltas.map do |dr, dc|
       [row + dr, col + dc]
     end
     
@@ -118,5 +118,14 @@ class Man
   
   protected
   attr_accessor :board
+
+  def deltas
+    if self.color == :dark
+      debugger
+      DELTAS.map { |row, col| [row * -1, col] }
+    else
+      DELTAS
+    end
+  end
 
 end
