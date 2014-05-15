@@ -50,6 +50,10 @@ class Board
     string
   end
   
+  def enemy?(pos, friendly_color)
+    !self[pos].nil? && self[pos] != friendly_color
+  end
+  
   def flip
     self.dup.flip!
   end

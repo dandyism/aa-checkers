@@ -50,8 +50,12 @@ class Man
 
     false
   end
-
+  
   def valid_moves
+    self.valid_slides + self.valid_jumps
+  end
+
+  def valid_slides
     deltas = DELTAS
 
     positions = deltas.map do |drow, dcol|
@@ -60,6 +64,25 @@ class Man
     end
 
     positions.select { |position| self.board[position].nil? }
+  end
+  
+  def valid_jumps
+    row, col = self.position
+    
+    enemy_squares = DELTAS.map do |dr, dc|
+      [row + dr, col + dc]
+    end
+    
+    enemy_squares.select! { |square| self.board.enemy?(square, self.color) }
+    
+    jump_squares = enemy_squares.map do |erow, ecol|
+      drow = erow - row
+      dcol = ecol - col
+      
+      [erow + drow, ecol + dcol]
+    end
+    
+    jump_squares.select { |square| self.board[square].nil? }
   end
   
   def move(sequence)
