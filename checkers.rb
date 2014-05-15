@@ -46,7 +46,7 @@ class Checkers
         puts "Invalid Move!"
         retry
       rescue Interrupt
-        puts "Quitting game"
+        puts "\rQuitting game"
         exit
       end
       
