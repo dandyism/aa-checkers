@@ -73,6 +73,13 @@ class Board
     row, col = position
     self.matrix[row][col] = value 
   end
+
+  def kill(target)
+    target.position = nil
+    self.men[target.color].delete(target)
+
+    nil
+  end
   
   protected
   attr_accessor :matrix

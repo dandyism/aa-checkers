@@ -8,6 +8,7 @@ class Man
   ]
   
   attr_reader :position
+  attr_accessor :color
   
   def initialize(board, color)
     self.board, self.color = board, color
@@ -19,7 +20,7 @@ class Man
     end
 
     @position = pos
-    self.board[pos] = self
+    self.board[pos] = self unless pos.nil?
   end
   
   def slide(pos)
@@ -32,15 +33,13 @@ class Man
     delta    = [row_diff, col_diff]
 
     if row_diff == -2 && col_diff.abs == 2 && self.board[pos].nil?
-      target_row = self.position.first 
-      target_col = self.position.last
+      target_row = self.position.first + row_diff / 2
+      target_col = self.position.last + col_diff / 2
 
-      #FIXME: Move target removal to board function?
-      target = self.board[target_row][target_col]
+      target = self.board[[target_row,target_col]]
 
       if target.color != self.color
-        self.board.men[target.color].delete(target)
-        target.position = nil
+        self.board.kill(target)
 
         self.position = pos
         return true
@@ -66,6 +65,6 @@ class Man
   end
   
   protected
-  attr_accessor :board, :color
+  attr_accessor :board
 
 end
