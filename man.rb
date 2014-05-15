@@ -97,8 +97,8 @@ class Man
   end
   
   def move!(sequence)
-    sequence.each do |move|
-      if sequence.size > 1
+    sequence[1..-1].each do |move|
+      if sequence.size > 2
         self.jump(move) or raise InvalidMoveError.new
       else
         (self.slide(move) || self.jump(move)) or raise InvalidMoveError.new

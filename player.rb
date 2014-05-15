@@ -8,7 +8,7 @@ class Player
   
   def take_turn
     seq = get_move
-    man = take_man(seq.shift)
+    man = take_man(seq.first)
 
     if man.nil? || man.color != self.color
       raise InvalidMoveError.new
