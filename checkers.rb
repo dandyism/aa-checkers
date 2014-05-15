@@ -17,7 +17,13 @@ class Checkers
     until over?
       current_player = self.players.first
       self.board.render
-      current_player.take_turn
+      
+      begin
+        current_player.take_turn        
+      rescue InvalidMoveError => e
+        puts "Invalid Move!"
+        retry
+      end
       
       self.players.rotate!
 
