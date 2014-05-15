@@ -7,8 +7,8 @@ class Checkers
     self.board = Board.new
     
     self.players = [
-      HumanPlayer.new(self.board),
-      HumanPlayer.new(self.board)
+      HumanPlayer.new(self.board, :light),
+      HumanPlayer.new(self.board, :dark)
     ]
   end
   

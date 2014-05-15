@@ -2,15 +2,17 @@ require_relative 'invalid_move_error'
 
 class HumanPlayer
   
-  def initialize(board)
-    self.board = board
+  attr_accessor :color
+  
+  def initialize(board, color)
+    self.board, self.color = board, color
   end
   
   def take_turn
     seq = get_move
     man = take_man(seq.shift)
 
-    if man.nil?
+    if man.nil? || man.color != self.color
       raise InvalidMoveError.new
     end
     
