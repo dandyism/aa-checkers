@@ -7,14 +7,14 @@ class HumanPlayer
   end
   
   def take_turn
-    move = get_move
-    man = take_man(move.first)
+    seq = get_move
+    man = take_man(seq.shift)
 
     if man.nil?
       raise InvalidMoveError.new
     end
     
-    (man.slide(move.last) || man.jump(move.last)) or raise InvalidMoveError.new
+    man.move(seq)
   end
   
   protected
@@ -26,16 +26,16 @@ class HumanPlayer
   
   def get_move
     move = gets.chomp
-    parse_move(move)
+    parse_input(move)
+  end
+
+  def parse_input(move)
+    chain = move.split(",")
+    chain.map { |link| parse_move(link) }
   end
   
   def parse_move(move)
-    start, target = move.split(",")
-    start = start.split("")
-    target = target.split("")
-    start.map! {|e| Integer(e) }
-    target.map! {|e| Integer(e) }
-    [start, target]
+    move.split("").map { |digit| Integer(digit) }
   end
   
 end
