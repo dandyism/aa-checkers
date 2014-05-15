@@ -20,7 +20,7 @@ class Checkers
       
       begin
         current_player.take_turn        
-      rescue InvalidMoveError => e
+      rescue InvalidMoveError, ArgumentError
         puts "Invalid Move!"
         retry
       end
