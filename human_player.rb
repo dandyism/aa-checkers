@@ -1,12 +1,7 @@
 require_relative 'invalid_move_error'
+require_relative 'player'
 
-class HumanPlayer
-  
-  attr_accessor :color
-  
-  def initialize(board, color)
-    self.board, self.color = board, color
-  end
+class HumanPlayer < Player
   
   def take_turn
     seq = get_move
@@ -17,27 +12,6 @@ class HumanPlayer
     end
     
     man.move(seq)
-  end
-  
-  protected
-  attr_accessor :board
-  
-  def take_man(position)
-    self.board[position]
-  end
-  
-  def get_move
-    move = gets.chomp
-    parse_input(move)
-  end
-
-  def parse_input(move)
-    chain = move.split(",")
-    chain.map { |link| parse_move(link) }
-  end
-  
-  def parse_move(move)
-    move.split("").map { |digit| Integer(digit) }
   end
   
 end
