@@ -19,6 +19,10 @@ class Player
     seq
   end
   
+  def to_s
+    "#{self.color.to_s.upcase}"
+  end
+  
   def defeated?
     self.board.all_dead?(self.color) ||
       !self.board.men_can_move?(self.color)

@@ -54,7 +54,7 @@ class Checkers
     end
     
     self.board.render
-    winner = winner?
+    winner = winner? || "No one"
     puts "#{winner} has won."
     
   end
