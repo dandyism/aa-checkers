@@ -36,7 +36,12 @@ class Checkers
       self.board.render
       
       begin
-        current_player.take_turn        
+        move = current_player.take_turn        
+        
+        if self.players.last.is_a?(RemotePlayer)
+          self.players.last.send_move(move)
+        end
+        
       rescue InvalidMoveError, ArgumentError
         puts "Invalid Move!"
         retry

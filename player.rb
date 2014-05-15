@@ -15,6 +15,8 @@ class Player
     end
     
     man.move(seq)
+    
+    seq
   end
   
   protected
