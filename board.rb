@@ -8,7 +8,6 @@ class Board
   def initialize
     self.matrix = empty_matrix
     place_men
-    self.starting_color = :red
   end
   
   def render
@@ -18,7 +17,7 @@ class Board
   
   def to_s
     string = "   0  1  2  3  4  5  6  7  8  9\n"
-    background_color = self.starting_color
+    background_color = :red
     
     self.matrix.each_index do |row|
       string += "#{row} "
@@ -84,7 +83,6 @@ class Board
   protected
   attr_accessor :matrix
   attr_accessor :men
-  attr_accessor :starting_color
   
   def empty_matrix
     []
