@@ -25,7 +25,7 @@ class RemotePlayer < Player
   end
   
   def send_move(move)
-    self.stream.puts move
+    self.stream.puts "#{move}\n"
   end
   
 end
