@@ -25,9 +25,10 @@ class Man
     end
 
     @position = pos
-    self.board[pos] = self unless pos.nil?
-    
-    king_me! if king_me?
+    unless pos.nil?
+      self.board[pos] = self
+      king_me! if king_me?
+    end 
   end
   
   def slide(pos)
