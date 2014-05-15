@@ -4,6 +4,8 @@ require_relative 'board'
 require_relative 'human_player'
 require_relative 'remote_player'
 
+require "optparse"
+
 class Checkers
   
   def initialize
@@ -77,12 +79,25 @@ end
 if __FILE__ == $PROGRAM_NAME
   game = Checkers.new
   
-  if ARGV[0] == "multiplayer"
-    if ARGV[1].nil?
+  multiplayer = false
+  remote_address = nil
+  
+  OptionParser.new do |opts|
+    opts.banner = "Usage: #{__FILE__} [options]"
+    
+    opts.on("-m", "--multiplayer [address]") do |address|
+      multiplayer    = true
+      remote_address = address
+    end
+  end.parse!
+  
+  if multiplayer 
+    if remote_address.nil?
       game.init_server
     else
-      game.init_remote(ARGV[1])
+      game.init_remote(remote_address)
     end
+    
   else
     game.init_hotseat
   end
