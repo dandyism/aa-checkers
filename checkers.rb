@@ -1,5 +1,6 @@
 require_relative 'board'
 require_relative 'human_player'
+require_relative 'remote_player'
 
 class Checkers
   
@@ -9,6 +10,13 @@ class Checkers
     self.players = [
       HumanPlayer.new(self.board, :light),
       HumanPlayer.new(self.board, :dark)
+    ]
+  end
+  
+  def configure_server
+    self.players = [
+      HumanPlayer.new(self.board, :light),
+      RemotePlayer.new(self.board, :dark)
     ]
   end
   
@@ -43,5 +51,11 @@ class Checkers
 end
 
 if __FILE__ == $PROGRAM_NAME
-  Checkers.new.play
+  game = Checkers.new
+  
+  if ARGV[0] == "multiplayer"
+    game.configure_server
+  end
+  
+  game.play
 end

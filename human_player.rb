@@ -6,7 +6,7 @@ class HumanPlayer < Player
   def initialize(board, color)
     super
     
-    self.stream = Kernel
+    self.stream = $stdin
   end
   
 end
