@@ -6,15 +6,26 @@ class Player
     self.board, self.color = board, color
   end
   
+  def take_turn
+    seq = get_move
+    man = take_man(seq.shift)
+
+    if man.nil? || man.color != self.color
+      raise InvalidMoveError.new
+    end
+    
+    man.move(seq)
+  end
+  
   protected
-  attr_accessor :board
+  attr_accessor :board, :stream
   
   def take_man(position)
     self.board[position]
   end
   
   def get_move
-    move = gets.chomp
+    move = self.stream.gets.chomp
     parse_input(move)
   end
 
