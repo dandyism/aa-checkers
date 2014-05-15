@@ -8,11 +8,15 @@ class Man
     [ -1,-1]
   ]
   
-  attr_reader :position
+  KING_ROWS = [0, 9]
+  
+  attr_reader :position, :king
   attr_accessor :color
   
   def initialize(board, color)
     self.board, self.color = board, color
+    
+    self.king = false
   end
   
   def position=(pos)
@@ -22,6 +26,8 @@ class Man
 
     @position = pos
     self.board[pos] = self unless pos.nil?
+    
+    king_me! if king_me?
   end
   
   def slide(pos)
@@ -113,13 +119,25 @@ class Man
   
   protected
   attr_accessor :board
+  attr_writer :king
+  
+  def king_me?
+    KING_ROWS.include?(self.position.first)
+  end
+  
+  def king_me!
+    self.king = true
+  end
 
   def deltas
+    deltas = DELTAS
+    deltas += [[1, -1], [1, 1]] if self.king
+    
     if self.color == :dark
-      DELTAS.map { |row, col| [row * -1, col] }
-    else
-      DELTAS
+      deltas.map! { |row, col| [row * -1, col] }
     end
+    
+    deltas
   end
 
 end
