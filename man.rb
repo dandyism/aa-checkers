@@ -1,4 +1,5 @@
 # encoding: UTF-8
+require "colorize"
 
 class Man
   
@@ -62,7 +63,8 @@ class Man
   end
 
   def to_s
-    "●"
+    color = (self.color == :light) ? :red : :black
+    "●".colorize(color: color)
   end
   
   protected
