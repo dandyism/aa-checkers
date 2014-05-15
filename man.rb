@@ -32,6 +32,7 @@ class Man
     col_diff = pos.last  - self.position.last
     delta    = [row_diff, col_diff]
 
+    # FIXME: This code assumes the board flips every turn.
     if row_diff == -2 && col_diff.abs == 2 && self.board[pos].nil?
       target_row = self.position.first + row_diff / 2
       target_col = self.position.last + col_diff / 2
