@@ -59,13 +59,11 @@ class Man
     positions.select { |position| self.board[position].nil? }
   end
 
-  end
-  
   def to_s
     "●"
   end
   
   protected
   attr_accessor :board, :color
-  
+
 end
