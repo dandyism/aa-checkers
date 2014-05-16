@@ -1,4 +1,5 @@
 require "socket"
+require "json"
 
 require_relative 'player'
 
@@ -25,12 +26,12 @@ class RemotePlayer < Player
   end
   
   def send_move(move)
-    self.stream.puts "#{move}\n"
+    self.stream.puts "#{move.to_json}\n"
   end
   
   def get_move
     move = self.stream.gets.chomp
-    eval(move)
+    JSON::parse(move)
   end
   
 end
